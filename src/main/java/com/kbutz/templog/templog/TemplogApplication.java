@@ -14,19 +14,4 @@ public class TemplogApplication {
 		SpringApplication.run(TemplogApplication.class, args);
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		temperatureRepository.deleteAll();
-//
-//		temperatureRepository.save(new TemperatureReading("70.5", new Date()));
-//		temperatureRepository.save(new TemperatureReading("71", new Date()));
-//
-//		// printall
-//		for (TemperatureReading t : temperatureRepository.findAll()) {
-//			System.out.println(t);
-//		}
-//
-//		// print latest
-//		System.out.println(temperatureRepository.findTopByOrderByTimeDesc().toString());
-//	}
 }

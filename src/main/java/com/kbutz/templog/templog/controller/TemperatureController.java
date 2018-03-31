@@ -13,17 +13,20 @@ public class TemperatureController {
     @Autowired
     private TemperatureRepository temperatureRepository;
 
-    @RequestMapping("/current")
+    @RequestMapping("/current-reading")
     public TemperatureReading getCurrentTemperature() {
         return temperatureRepository.findTopByOrderByTimeDesc();
     }
 
-    @RequestMapping("/all")
+    @RequestMapping("/all-readings")
     public List<TemperatureReading> listAllTemperatures() {
         return temperatureRepository.findAll();
     }
 
-    @RequestMapping("/clear")
+    /**
+     * A convenience end-point to clear readings during development
+     */
+    @RequestMapping("/clear-all-readings")
     public void clear() {
         temperatureRepository.deleteAll();
     }
