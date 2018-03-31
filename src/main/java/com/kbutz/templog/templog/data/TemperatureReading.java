@@ -9,8 +9,12 @@ public class TemperatureReading {
     @Id
     private String Id;
 
-    private String temperature;
+    // FIXME: convert temps to Double
+    private String insideTemp;
+    private String outsideTemp;
     private Date time;
+
+    // TODO: add additional fields for outside weather data? wind speed/direction, rain/snow?
 
     public String getId() {
         return Id;
@@ -20,12 +24,20 @@ public class TemperatureReading {
         Id = id;
     }
 
-    public String getTemperature() {
-        return temperature;
+    public String getInsideTemp() {
+        return insideTemp;
     }
 
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
+    public void setInsideTemp(String insideTemp) {
+        this.insideTemp = insideTemp;
+    }
+
+    public String getOutsideTemp() {
+        return outsideTemp;
+    }
+
+    public void setOutsideTemp(String outsideTemp) {
+        this.outsideTemp = outsideTemp;
     }
 
     public Date getTime() {
@@ -36,13 +48,18 @@ public class TemperatureReading {
         this.time = time;
     }
 
-    public TemperatureReading(String temperature, Date time) {
-        this.temperature = temperature;
+    public TemperatureReading(String insideTemp, String outsideTemp, Date time) {
+        this.insideTemp = insideTemp;
+        this.outsideTemp = outsideTemp;
         this.time = time;
     }
 
     @Override
     public String toString() {
-        return temperature + " " + time.toString();
+        return insideTemp
+                + ", "
+                + outsideTemp
+                + ", "
+                + time.toString();
     }
 }
