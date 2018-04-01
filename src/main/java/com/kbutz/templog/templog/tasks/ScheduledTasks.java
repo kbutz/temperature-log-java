@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class ScheduledTasks {
+    
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
