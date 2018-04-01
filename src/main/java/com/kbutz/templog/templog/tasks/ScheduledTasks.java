@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class ScheduledTasks {
-    
+
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -47,7 +47,7 @@ public class ScheduledTasks {
     }
 
     private String getInsideTempFromPi() {
-        String tempRead = restTemplate.getForObject("http://192.168.1.5:5000/", String.class);
+        String tempRead = restTemplate.getForObject(Secrets.PI_URI, String.class);
 
         RawTempDto b = null;
         try {
@@ -61,6 +61,7 @@ public class ScheduledTasks {
 
     private String getOutsideTempFromOwmApi() {
         // TODO: move Secrets to a config file
+        // TODO: Autowire
         OWM owm = new OWM(Secrets.OWM_API_KEY);
         owm.setUnit(OWM.Unit.IMPERIAL);
 
