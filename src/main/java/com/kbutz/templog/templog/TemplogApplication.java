@@ -1,5 +1,7 @@
 package com.kbutz.templog.templog;
 
+import com.kbutz.templog.templog.constants.Secrets;
+import net.aksingh.owmjapis.core.OWM;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -20,6 +22,13 @@ public class TemplogApplication {
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
+	}
+
+	@Bean
+	public OWM owm() {
+		OWM owm = new OWM(Secrets.OWM_API_KEY);
+		owm.setUnit(OWM.Unit.IMPERIAL);
+		return owm;
 	}
 
 }

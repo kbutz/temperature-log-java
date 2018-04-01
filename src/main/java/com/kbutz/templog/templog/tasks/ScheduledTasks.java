@@ -25,6 +25,8 @@ public class ScheduledTasks {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
+    private OWM owm;
+    @Autowired
     private RestTemplate restTemplate;
     @Autowired
     private TemperatureRepository temperatureRepository;
@@ -60,11 +62,6 @@ public class ScheduledTasks {
     }
 
     private String getOutsideTempFromOwmApi() {
-        // TODO: move Secrets to a config file
-        // TODO: Autowire
-        OWM owm = new OWM(Secrets.OWM_API_KEY);
-        owm.setUnit(OWM.Unit.IMPERIAL);
-
         CurrentWeather currentWeather = null;
         try {
             currentWeather = owm.currentWeatherByCityName(Secrets.STATE);
