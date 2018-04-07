@@ -3,10 +3,12 @@ package com.kbutz.templog.templog.tasks;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kbutz.templog.templog.constants.Secrets;
 import com.kbutz.templog.templog.data.RawTempDto;
+import com.kbutz.templog.templog.data.TemperatureData;
 import com.kbutz.templog.templog.data.TemperatureReading;
 import com.kbutz.templog.templog.repository.TemperatureRepository;
 import net.aksingh.owmjapis.api.APIException;
@@ -39,11 +41,16 @@ public class ScheduledTasks {
     public void persistCurrentTime() {
 
         String insideTemp = getInsideTempFromPi();
-        String outsideTemp = getOutsideTempFromOwmApi();
+        TemperatureData insideTempData = new TemperatureData();
+        insideTempData.setTemperatureSource("insideTemp");
+        insideTempData.setTemperature(Double.parseDouble(insideTemp));
 
-        temperatureRepository.save(new TemperatureReading(insideTemp,
-                                                          outsideTemp,
-                                                          LocalDateTime.now()));
+        String outsideTemp = getOutsideTempFromOwmApi();
+        TemperatureData outsideTempData = new TemperatureData();
+        outsideTempData.setTemperatureSource("outsideTemp");
+        outsideTempData.setTemperature(Double.parseDouble(outsideTemp));
+
+        temperatureRepository.save(new TemperatureReading("home", LocalDateTime.now(), Arrays.asList(insideTempData, outsideTempData)));
     }
 
     private String getInsideTempFromPi() {
