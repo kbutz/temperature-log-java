@@ -2,7 +2,7 @@ package com.kbutz.templog.templog.tasks;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kbutz.templog.templog.constants.Secrets;
@@ -41,11 +41,9 @@ public class ScheduledTasks {
         String insideTemp = getInsideTempFromPi();
         String outsideTemp = getOutsideTempFromOwmApi();
 
-//        log.info(b.getRawTemp());
         temperatureRepository.save(new TemperatureReading(insideTemp,
                                                           outsideTemp,
-                                                          new Date()));
-//        log.info("This record has been added to the db: {}", temperatureRepository.findTopByOrderByTimeDesc().toString());
+                                                          LocalDateTime.now()));
     }
 
     private String getInsideTempFromPi() {

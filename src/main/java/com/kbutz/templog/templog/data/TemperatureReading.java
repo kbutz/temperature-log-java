@@ -2,6 +2,7 @@ package com.kbutz.templog.templog.data;
 
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class TemperatureReading {
@@ -12,7 +13,7 @@ public class TemperatureReading {
     // FIXME: convert temps to Double
     private String insideTemp;
     private String outsideTemp;
-    private Date time;
+    private LocalDateTime time;
 
     // TODO: add additional fields for outside weather data? wind speed/direction, rain/snow?
 
@@ -40,15 +41,15 @@ public class TemperatureReading {
         this.outsideTemp = outsideTemp;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public TemperatureReading(String insideTemp, String outsideTemp, Date time) {
+    public TemperatureReading(String insideTemp, String outsideTemp, LocalDateTime time) {
         this.insideTemp = insideTemp;
         this.outsideTemp = outsideTemp;
         this.time = time;
