@@ -1,7 +1,7 @@
 package com.kbutz.templog.templog;
 
-import com.kbutz.templog.templog.constants.Secrets;
 import net.aksingh.owmjapis.core.OWM;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,6 +15,9 @@ import java.util.Date;
 @EnableScheduling
 public class TemplogApplication {
 
+	@Value("${owm.api.key}")
+	private String OWM_API_KEY;
+
 	public static void main(String[] args) {
 		SpringApplication.run(TemplogApplication.class, args);
 	}
@@ -26,7 +29,7 @@ public class TemplogApplication {
 
 	@Bean
 	public OWM owm() {
-		OWM owm = new OWM(Secrets.OWM_API_KEY);
+		OWM owm = new OWM(OWM_API_KEY);
 		owm.setUnit(OWM.Unit.IMPERIAL);
 		return owm;
 	}

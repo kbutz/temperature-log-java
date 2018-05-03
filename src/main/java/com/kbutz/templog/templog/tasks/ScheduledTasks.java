@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kbutz.templog.templog.constants.Secrets;
 import com.kbutz.templog.templog.data.RawTempDto;
 import com.kbutz.templog.templog.data.TemperatureData;
 import com.kbutz.templog.templog.data.TemperatureReading;
@@ -17,6 +16,7 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -37,9 +37,15 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    @Value("${owm.api.state}")
+    private String STATE;
+    @Value("${raspberryPiUri}")
+    private String PI_URI;
+
     @Scheduled(fixedRate = 5000)
     public void persistCurrentTime() {
 
+        // TODO: temp factory
         String insideTemp = getInsideTempFromPi();
         TemperatureData insideTempData = new TemperatureData();
         insideTempData.setTemperatureSource("insideTemp");
@@ -54,7 +60,7 @@ public class ScheduledTasks {
     }
 
     private String getInsideTempFromPi() {
-        String tempRead = restTemplate.getForObject(Secrets.PI_URI, String.class);
+        String tempRead = restTemplate.getForObject(PI_URI, String.class);
 
         RawTempDto b = null;
         try {
@@ -69,7 +75,7 @@ public class ScheduledTasks {
     private String getOutsideTempFromOwmApi() {
         CurrentWeather currentWeather = null;
         try {
-            currentWeather = owm.currentWeatherByCityName(Secrets.STATE);
+            currentWeather = owm.currentWeatherByCityName(STATE);
         } catch (APIException e) {
             log.error(e.toString());
         }

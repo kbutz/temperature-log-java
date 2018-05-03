@@ -1,7 +1,6 @@
 package com.kbutz.templog.templog
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kbutz.templog.templog.constants.Secrets
 import com.kbutz.templog.templog.data.RawTempDto
 import com.kbutz.templog.templog.repository.TemperatureRepository
 import com.kbutz.templog.templog.tasks.ScheduledTasks

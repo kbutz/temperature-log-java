@@ -25,3 +25,4 @@ nbdist/
 .nb-gradle/
 
 Secrets.java
+application-local.properties
